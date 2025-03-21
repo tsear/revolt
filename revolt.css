@@ -1,0 +1,686 @@
+
+#contentWrapper {
+  position: relative; /* Keep title and form in the same position */
+  text-align: center;
+  max-width: 100%; /* Full width by default */
+  padding: 20px;
+  margin: 0 auto;
+}
+
+/* Title fade-in/out animation */
+#fadingText .title {
+  opacity: 0;
+  position: absolute; /* Titles are stacked on top of each other */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: fadeInOut 5s forwards;
+  font-size: 38px !important; /* Match font size with the form */
+  font-weight: normal; /* Match font weight with the form */
+  max-width: 90%; /* Restrict the width to prevent wrapping */
+  word-wrap: break-word; /* Allow words to break and wrap to the next line */
+}
+
+/* Keyframes for the title fade-in-out */
+@keyframes fadeInOut {
+  0% { opacity: 1; } /* Title 1 appears */
+  50% { opacity: 1; } /* Title 1 stays visible */
+  70% { opacity: 0; } /* Fade Title 1 out */
+  100% { opacity: 0; } /* Title 1 stays invisible */
+}
+
+/* Title delays to stagger each one */
+#fadingText .title:nth-child(1) {
+  animation-delay: 0s; /* Title 1 */
+}
+
+#fadingText .title:nth-child(2) {
+  animation-delay: 3s; /* Title 2 (form) fades in after Title 1 fades */
+  opacity: 0; /* Ensure the second title (form) starts invisible */
+  visibility: hidden; /* Ensure it is not visible */
+}
+
+/* Form fade-in animation */
+#websiteForm {
+  opacity: 0;
+  display: block;
+  animation: fadeIn 2s forwards;
+  animation-delay: 4s; /* Form fades in after title fades out */
+  max-width: 90%; /* Same width restriction as title */
+  margin: 0 auto; /* Center the form */
+}
+
+/* Keyframes for form fade-in */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Style for form labels, inputs, and other form text */
+#websiteForm label, #websiteForm input, #websiteForm select, #websiteForm textarea {
+  font-size: 38px !important; /* Set font size for all form elements */
+  font-weight: normal; /* Same font weight for consistency */
+}
+
+/* Make sure radio buttons are consistent with font size */
+#websiteForm input[type="radio"] {
+  margin-right: 10px;
+  font-size: 38px !important; /* Make sure radio buttons' text is 38px */
+}
+
+#websiteForm input[type="submit"] {
+  display: none;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  /* Reduce font size for mobile */
+  #fadingText .title {
+    font-size: 20px !important; /* Slightly smaller font size for mobile */
+    max-width: 90%; /* Keep the width under control */
+  }
+
+  #websiteForm {
+    max-width: 90%; /* Make sure the form doesn't go beyond the width */
+  }
+
+  /* Adjust the form text size for mobile */
+  #websiteForm label, #websiteForm input, #websiteForm select, #websiteForm textarea {
+    font-size: 20px !important; /* Adjust font size for mobile */
+  }
+}
+
+/* Hide block with hide-mobile class on mobile */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+
+/* Container holding the cat image and title */
+.cat-container {
+  position: absolute;         /* Anchors the cat relative to its nearest positioned ancestor */
+  top: 120px;                  /* Adjust to lift the cat closer to the nav bar */
+  right: -225px;              /* Adjust this negative offset to control how much of the cat peeks out */
+  width: 750px;               /* Set the container width as requested */
+  height: 1000px;             /* Set the container height as requested */
+  overflow: hidden;           /* Hide any parts of the cat that slide outside the container */
+  z-index: 0;                 /* Ensure other elements (like your horizontal row) appear on top */
+}
+
+/* The cat image itself */
+.cat-img {
+  position: absolute;
+  top: 0;
+  right: 0;                   /* Keeps the cat’s right edge flush with the container’s right side */
+  width: 750px;               /* Image width matches container width */
+  height: auto;               /* Maintain the image’s aspect ratio */
+  transition: transform 2s ease; /* Smooth slide animation */
+  transform: translateX(0);      /* Default state with no horizontal shift */
+}
+
+/* On hover, slide the cat image to the right */
+.cat-container:hover .cat-img {
+  transform: translateX(100%);
+}
+
+#sentenceWrapper {
+  font-size: 32px; /* H2 size */
+  font-weight: bold;
+  color: white; /* White text */
+  text-align: center;
+  transform: translateX(-10%); /* Move the entire sentence along the X-axis */
+}
+
+#staticSentence {
+  display: inline-block; /* Static part of the sentence stays inline */
+  position: relative;
+  line-height: 1.2; /* Ensure consistent line height for static text */
+}
+
+#rotatingWordsWrapper {
+  display: inline-block; /* Words will line up inline with the sentence */
+  position: relative;
+  padding-left: 5px; /* Control space between static text and rotating word */
+  line-height: 1.2; /* Ensure words stay in the same line */
+  transform: translateY(-27px); /* Move the entire wrapper up by 27px */
+}
+
+#rotatingWordsWrapper .rotatingWord {
+  opacity: 0; /* Initially invisible */
+  display: inline-block; /* Ensure words are inline */
+  position: absolute; /* Keep words in the same spot */
+  left: 0; /* Align words with the static sentence */
+  transform: translateY(-27px); /* Adjust vertical positioning for individual words */
+  animation: wordCycle 2.5s ease-in-out forwards; /* Each word will take 2.5 seconds */
+}
+
+/* Keyframes for word cycling (fade-in, stay, and fade-out) */
+@keyframes wordCycle {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(-27px); /* Word starts above the sentence */
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0); /* Word drops in */
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0); /* Word stays visible */
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(27px); /* Word drops out */
+  }
+}
+
+/* Custom Keyframes for Word 6 (It stays visible) */
+@keyframes wordCycleStay {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(0); /* Word stays in place */
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0); /* Word drops in */
+  }
+}
+
+/* Staggering the delay for each word */
+#rotatingWordsWrapper .rotatingWord:nth-child(1) {
+  animation-delay: 0s; /* First word starts immediately */
+}
+
+#rotatingWordsWrapper .rotatingWord:nth-child(2) {
+  animation-delay: 2.5s; /* Second word starts after 2.5s */
+}
+
+#rotatingWordsWrapper .rotatingWord:nth-child(3) {
+  animation-delay: 5s; /* Third word starts after 5s */
+}
+
+#rotatingWordsWrapper .rotatingWord:nth-child(4) {
+  animation-delay: 7.5s; /* Fourth word starts after 7.5s */
+}
+
+#rotatingWordsWrapper .rotatingWord:nth-child(5) {
+  animation-delay: 10s; /* Fifth word starts after 10s */
+}
+
+/* Change animation for the 6th word to make it stay */
+#rotatingWordsWrapper .rotatingWord:nth-child(6) {
+  animation: wordCycleStay 2.5s ease-in-out forwards;
+  animation-delay: 12.5s; /* Sixth word starts after 12.5s */
+}
+
+.explore-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif; /* Clean sans-serif font */
+  position: relative;
+  top: -20px; /* Adjusts the overall position upwards by 75px */
+}
+
+.explore-text {
+  font-size: 16px;
+  font-weight: normal;
+  color: #FCB900; /* Yellow/orange color */
+  margin-bottom: 5px; /* Add space between the text and the arrow */
+}
+
+.down-arrow {
+  font-size: 30px;
+  color: #FCB900;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  margin-top: 5px; /* Adds slight spacing above the arrow */
+}
+
+.down-arrow:hover {
+  transform: translateY(5px); /* Slight movement effect on hover */
+}
+
+.down-arrow span {
+  display: block;
+  font-size: 36px;
+  line-height: 1;
+  font-weight: 400; /* Lighter weight for a sleek look */
+  transform: rotate(0deg); /* Ensure arrow points down */
+}
+
+
+/* Container for the roadmap */
+.roadmap-container {
+  position: relative;
+  width: 100%; /* Full-width container */
+  margin: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Labels for Before and After the Revolution */
+.before-label, .after-label {
+  position: absolute;
+  font-size: 12px; /* Reduced font size by 50% */
+  font-weight: bold;
+  color: black; /* Changed to black */
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(-30px); /* Raised upwards by 30px */
+  overflow: hidden; /* Prevents any emojis from spilling out */
+  transition: all 0.3s ease;
+}
+
+/* Label's Arrow */
+.before-label::after, .after-label::after {
+  content: "▼"; /* Add downward-pointing arrow */
+  font-size: 16px;
+  margin-top: 5px;
+}
+
+/* Positioning for Before and After labels */
+.before-label {
+  left: 0;
+  padding-left: 20px;
+}
+
+.after-label {
+  right: 0;
+  padding-right: 20px;
+}
+
+
+
+/* Container for the steps */
+.roadmap {
+  display: flex;
+  justify-content: space-evenly; /* Even space between steps */
+  align-items: center;
+  width: 100%;  /* Set the container width to 85% of the total screen width */
+  position: relative;
+  margin: 50px auto; /* Center the container */
+}
+
+/* Single timeline line */
+.timeline-line {
+  position: absolute;
+  top: 50%;  /* Position the line vertically centered */
+  left: 0;
+  width: 100vw;  /* Stretch the line across the full container */
+  height: 4px;  /* Line thickness */
+  background-color: black;  /* Black color for the line */
+  z-index: -1; /* Ensure the line is behind the numbers */
+}
+
+/* Styling individual steps */
+.step {
+  font-size: 50px;   /* Larger font size for visibility */
+  font-weight: bold; /* Keep it bold for emphasis */
+  color: white;
+  background-color: #FCB900; /* Amber highlight */
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: relative;
+  z-index: 1; /* Make sure the numbers appear above the line */
+  transition: all 0.3s ease; /* Smooth animation on hover */
+  cursor: pointer;
+}
+
+/* Hover effect for the step numbers */
+.step:hover {
+  background-color: #e69a00;  /* Slightly darker amber on hover */
+  transform: scale(1.2);       /* Make the number enlarge slightly */
+}
+
+/* Step description that appears on hover */
+.step-description {
+  visibility: hidden;  /* Initially hidden */
+  position: absolute;
+  top: 120%;  /* Position it just below the step */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: white;
+  color: black;
+  padding: 8px 12px;  /* Adjust padding for better text fit */
+  border-radius: 5px;
+  width: 150px; /* Control the width of the description */
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;  /* Make it invisible initially */
+  transition: opacity 0.3s ease-in-out; /* Smooth transition */
+  font-size: 14px; /* Smaller font size by default */
+}
+
+/* Show description when hovering over a step */
+.step:hover .step-description {
+  visibility: visible;  /* Make it visible */
+  opacity: 1; /* Fade in the description */
+  font-size: 16px; /* Slightly larger font size on hover */
+}
+
+/* Optional: Adjust for mobile */
+@media (max-width: 768px) {
+  .roadmap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .step-description {
+    width: 120px; /* Smaller description on mobile */
+    font-size: 12px; /* Adjust font size for mobile */
+  }
+
+  .before-label, .after-label {
+    font-size: 10px; /* Adjust size of labels for mobile */
+  }
+}
+
+/* Container for the button and the cat elements */
+.button-container {
+  position: relative; /* To position cat elements relative to the button */
+  width: 200px; /* Button width */
+  height: 100px; /* Button height */
+  margin: 50px;
+  overflow: visible; /* Ensure that the head and tail poke out of the container */
+}
+
+/* Button Styles */
+.action-button {
+  width: 100%;
+  height: 100%;
+  background-color: #FCB900;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  z-index: 10; /* Keep the button above other elements */
+  cursor: pointer;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+/* Wrapper for the button and cat */
+.button-wrapper {
+  display: flex;
+  justify-content: center; /* Centers the button-container horizontally */
+  align-items: flex-start; /* Aligns the button-container at the top */
+  height: 150px; /* Limits the height so it isn't taking up the full screen */
+  position: relative;
+  width: 100%; /* Full width of the container */
+  margin: 0 auto;
+}
+
+/* Cat head and tail background setup */
+.button-container::before {
+  content: "";
+  position: absolute;
+  top: -107px; /* Position the head above the button */
+  left: 0%; /* Center the head horizontally on the button */
+  width: 250px;
+  height: 250px;
+  background: url('https://revoltstrategies.com/wp-content/uploads/2025/03/cat-head.png') no-repeat center center;
+  background-size: contain;
+  z-index: 5;
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth retreat effect */
+}
+
+.button-container::after {
+  content: "";
+  position: absolute;
+  top: -125px; /* Position the tail slightly below the head */
+  left: 20%; /* Keep the tail aligned with the head */
+  width: 200px;
+  height: 200px;
+  background: url('https://revoltstrategies.com/wp-content/uploads/2025/03/cat-tail.png') no-repeat center center;
+  background-size: contain;
+  z-index: 5;
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth retreat effect */
+}
+
+/* Hover effect for retreating the cat */
+.button-container:hover::before {
+  transform: translateY(50px) scale(1.2); /* Move the head downwards and scale it up */
+  opacity: 1; /* Keep the head visible */
+}
+
+.button-container:hover::after {
+  transform: translateY(35px) scale(1.2); /* Limit how far the tail moves down (reduced from 50px) */
+  opacity: 1; /* Keep the tail visible */
+}
+
+/* Hover effect for button */
+.action-button:hover {
+  background-color: #e69a00; /* Darker amber on hover */
+}
+
+/* Button Styles */
+.action-button {
+  width: 200px;
+  height: 60px;
+  background-color: #FCB900;
+  border: none;
+  border-radius: 10px;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Styling the container */
+.why-revolt {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 85%;
+  margin: 50px auto;
+  padding: 30px 0;
+}
+
+.block {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: white; /* Default background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.block:hover {
+  transform: scale(1.05);
+}
+
+/* Text inside each block */
+.block .text {
+  max-width: 70%;
+}
+
+.block h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.block p {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* For blocks with amber background */
+.amber-bg {
+  background-color: #FCB900;
+  color: white;
+}
+
+.amber-bg .text {
+  color: black; /* Change text color in amber background */
+}
+
+.icon {
+  font-size: 40px;
+  padding: 10px;
+  background-color: #222;
+  color: white;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .why-revolt {
+    width: 100%;
+  }
+
+  .block {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .block h2 {
+    font-size: 20px;
+  }
+
+  .block p {
+    font-size: 14px;
+  }
+}
+
+/* Slider Container: 85% width and centered */
+.slider-container {
+  width: 85%;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Slider: flex container lining up slides horizontally */
+.slider {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+/* Each slide takes full container width */
+.slide {
+  min-width: 100%;
+  position: relative;
+}
+
+/* Let images size naturally and fill the slide width */
+.slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Unified slide details container:
+   Increased size by ~75% (now about 87.5% wide and 265px tall),
+   with 15px padding on all sides, and centered content using flex */
+.slide-details {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(51, 51, 51, 0.95);
+  padding: 15px;
+  border-radius: 5px;
+  width: 87.5%;   /* Increased from 50% to roughly 87.5% */
+  height: 265px;  /* Increased from 150px to roughly 265px */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+  align-items: center;     /* horizontal centering */
+  text-align: center;
+  color: #fff;
+}
+
+/* Control areas: transparent overlays on left/right edges */
+.slider-control {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+/* Left Control positioned at left edge */
+.slider-control-left {
+  left: 0;
+}
+
+/* Right Control positioned at right edge */
+.slider-control-right {
+  right: 0;
+}
+
+/* Arrow spans inside slider controls */
+.slider-control .arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 90px;
+  color: #FCB900;
+  display: inline-block;
+  padding: 5px;
+}
+
+/* Position left arrow inside its container */
+.slider-control-left .arrow {
+  left: 10px;
+}
+
+/* Position right arrow inside its container */
+.slider-control-right .arrow {
+  right: 10px;
+}
+
+/* Dot indicators container: increased gap between dots */
+.slider-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 20px;
+  z-index: 3;
+}
+
+/* Each dot style: scaled up 3x, amber color, with a 2px black border */
+.dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(252, 185, 0, 0.7);
+  cursor: pointer;
+  transition: background 0.3s ease;
+  border: 2px solid #000;
+}
+
+/* Active dot style: dark grey for better distinction */
+.dot.active {
+  background: #333333;
+  border: 2px solid #000;
+}
