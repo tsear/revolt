@@ -1,0 +1,135 @@
+/*
+Theme Name: My Custom Theme
+Author: TYLER SEAR
+Description: A custom theme built from scratch.
+Version: 1.0
+*/
+
+/* ========== Base Theme Styles ========== */
+body {
+  font-family: Helvetica, sans-serif;
+  background-color: #fff;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Sticky Header */
+.logo-fixed {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.logo-fixed img {
+  height: 40px;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #fff;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.site-logo {
+  max-width: 50px; /* Adjust the width as needed */
+  height: auto;
+}
+
+/* Hero */
+.hero {
+  padding: 10vh 0 5vh;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.hero-heading {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transform: translateX(-75px);
+}
+
+.hero-static {
+  /* No fixed width; width is determined by content */
+}
+
+.rotating-container {
+  display: inline-block;
+  width: 150px; /* Adjust this value to the width needed for longest word */
+  text-align: left;
+}
+
+#rotating-word {
+  display: inline-block;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.btn-cta {
+  background: #FCB900;
+  color: #000;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  border-radius: 6px;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+#cat-play-area {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 100px); /* 100px is the footer height */
+  overflow: hidden;
+}
+
+#cat-container {
+  position: absolute;      
+  width: 128px;           /* one frame width */
+  height: 128px;          /* one frame height */
+  background-image: url('assets/images/BlackCatAnimationSheet.png');
+  background-repeat: no-repeat;
+  background-position: 0 0;  
+  background-size: 1024px 1024px; /* full sprite sheet dimensions */
+	left: 0;
+	right: 0;
+}
